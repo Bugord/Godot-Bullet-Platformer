@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bu7v07cbijm4l"]
+[gd_scene load_steps=29 format=3 uid="uid://bu7v07cbijm4l"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_5m380"]
 [ext_resource type="Texture2D" uid="uid://duhdsd7b47dqk" path="res://Sprites/Char.png" id="1_qcte2"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/PlayerAnimationTree.gd" id="4_4klb2"]
 [ext_resource type="Animation" uid="uid://dvtlm1fu8fx65" path="res://Animations/Player/player_jump_windup.res" id="6_5sfr5"]
 [ext_resource type="Animation" uid="uid://bn64wxf5tecik" path="res://Animations/Player/player_jump_winddown.res" id="8_wki8d"]
+[ext_resource type="Animation" uid="uid://dbetfsxcwmeye" path="res://Animations/Player/player_spawn.res" id="9_ad5hx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6ukfj"]
 size = Vector2(18, 31)
@@ -43,8 +44,8 @@ nodes/TimeScale/position = Vector2(560, 180)
 nodes/output/position = Vector2(740, 180)
 node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wx140"]
-advance_mode = 2
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_genuk"]
+animation = &"player_spawn"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4554b"]
 advance_mode = 2
@@ -66,17 +67,26 @@ advance_expression = "!is_on_floor()"
 advance_mode = 2
 advance_expression = "is_on_floor()"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l28my"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lps1e"]
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_n0nde"]
-states/End/position = Vector2(620, 60)
+states/End/position = Vector2(504, 60)
 states/Start/position = Vector2(374, 60)
 states/player_idle/node = SubResource("AnimationNodeAnimation_xxshl")
-states/player_idle/position = Vector2(379, 246)
+states/player_idle/position = Vector2(374, 246)
 states/player_jump/node = SubResource("AnimationNodeBlendSpace1D_wnn57")
-states/player_jump/position = Vector2(379, 363)
+states/player_jump/position = Vector2(374, 364)
 states/player_run/node = SubResource("AnimationNodeBlendTree_bq1gd")
-states/player_run/position = Vector2(568, 246)
-transitions = ["Start", "player_idle", SubResource("AnimationNodeStateMachineTransition_wx140"), "player_run", "player_idle", SubResource("AnimationNodeStateMachineTransition_4554b"), "player_idle", "player_run", SubResource("AnimationNodeStateMachineTransition_d2htf"), "player_idle", "player_jump", SubResource("AnimationNodeStateMachineTransition_4g5gp"), "player_run", "player_jump", SubResource("AnimationNodeStateMachineTransition_nvqxb"), "player_jump", "player_idle", SubResource("AnimationNodeStateMachineTransition_ltmhv")]
-graph_offset = Vector2(-352, -34)
+states/player_run/position = Vector2(569, 246)
+states/player_spawn/node = SubResource("AnimationNodeAnimation_genuk")
+states/player_spawn/position = Vector2(374, 145)
+transitions = ["player_run", "player_idle", SubResource("AnimationNodeStateMachineTransition_4554b"), "player_idle", "player_run", SubResource("AnimationNodeStateMachineTransition_d2htf"), "player_idle", "player_jump", SubResource("AnimationNodeStateMachineTransition_4g5gp"), "player_run", "player_jump", SubResource("AnimationNodeStateMachineTransition_nvqxb"), "player_jump", "player_idle", SubResource("AnimationNodeStateMachineTransition_ltmhv"), "Start", "player_spawn", SubResource("AnimationNodeStateMachineTransition_l28my"), "player_spawn", "player_idle", SubResource("AnimationNodeStateMachineTransition_lps1e")]
+graph_offset = Vector2(-416, 28)
 
 [sub_resource type="Animation" id="Animation_2eyey"]
 length = 0.001
@@ -99,7 +109,8 @@ _data = {
 "player_idle": ExtResource("2_0rh38"),
 "player_jump_winddown": ExtResource("8_wki8d"),
 "player_jump_windup": ExtResource("6_5sfr5"),
-"player_run": ExtResource("3_wci6g")
+"player_run": ExtResource("3_wci6g"),
+"player_spawn": ExtResource("9_ad5hx")
 }
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
@@ -121,7 +132,7 @@ frame = 50
 tree_root = SubResource("AnimationNodeStateMachine_n0nde")
 anim_player = NodePath("../AnimationPlayer")
 advance_expression_base_node = NodePath("..")
-parameters/player_jump/blend_position = 0.488426
+parameters/player_jump/blend_position = 0
 parameters/player_run/TimeScale/scale = -1.0
 script = ExtResource("4_4klb2")
 
