@@ -1,12 +1,126 @@
-[gd_scene load_steps=3 format=3 uid="uid://djn770aotik52"]
+[gd_scene load_steps=8 format=3 uid="uid://djn770aotik52"]
 
 [ext_resource type="Script" path="res://Scripts/Gun.gd" id="1_32k0g"]
 [ext_resource type="Texture2D" uid="uid://bv00o2pwem33p" path="res://Sprites/Gun.png" id="2_akkde"]
+[ext_resource type="Texture2D" uid="uid://bt3jbksgoqdd" path="res://Sprites/Shot.png" id="3_rsb50"]
+
+[sub_resource type="Animation" id="Animation_nifmx"]
+resource_name = "gun_idle"
+length = 0.10001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Gun:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_pscg3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Gun:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flash:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Flash:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_q2fyb"]
+resource_name = "gun_fire"
+length = 0.40001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Gun:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [2, 0, 1, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flash:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Flash:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lv1xn"]
+_data = {
+"RESET": SubResource("Animation_pscg3"),
+"gun_fire": SubResource("Animation_q2fyb"),
+"gun_idle": SubResource("Animation_nifmx")
+}
 
 [node name="Gun" type="Node2D"]
 script = ExtResource("1_32k0g")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Gun" type="Sprite2D" parent="."]
 texture = ExtResource("2_akkde")
 hframes = 3
 frame = 2
+
+[node name="Flash" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(11, -1)
+texture = ExtResource("3_rsb50")
+hframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lv1xn")
+}
