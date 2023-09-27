@@ -4,7 +4,7 @@ extends CharacterBody2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite2D
 
-const SPEED = 300.0
+const SPEED = 200.0
 const JUMP_VELOCITY = -400.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -16,9 +16,6 @@ func _ready():
 func is_walking():
 	return abs(velocity.length()) > 0.1
 
-func _process(_delta):
-	transform.x.x = 1 if is_looking_right() else -1
-
 func _physics_process(delta):
 	var direction = Input.get_axis("Left", "Right")
 
@@ -29,6 +26,7 @@ func _physics_process(delta):
 
 	animation_tree["parameters/player_run/TimeScale/scale"] = 1 if is_looking_right() == (direction > 0) else -1
 	move_and_slide()
+	transform.x.x = 1 if is_looking_right() else -1
 	animation_tree["parameters/player_jump/blend_position"] = velocity.y
 
 func jump():

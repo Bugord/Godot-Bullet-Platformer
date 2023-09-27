@@ -1,25 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://djn770aotik52"]
 
-[ext_resource type="Script" path="res://Scripts/Gun.gd" id="1_32k0g"]
-[ext_resource type="Texture2D" uid="uid://bv00o2pwem33p" path="res://Sprites/Gun.png" id="2_akkde"]
-[ext_resource type="PackedScene" uid="uid://hnfcdm0hgcss" path="res://Scenes/Bullet.tscn" id="2_g2ubf"]
-[ext_resource type="Texture2D" uid="uid://bt3jbksgoqdd" path="res://Sprites/Shot.png" id="3_rsb50"]
-
-[sub_resource type="Animation" id="Animation_nifmx"]
-resource_name = "gun_idle"
-length = 0.10001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Gun:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [2]
-}
+[ext_resource type="Script" path="res://Scripts/Gun.gd" id="1_y3mp3"]
+[ext_resource type="PackedScene" uid="uid://hnfcdm0hgcss" path="res://Scenes/Bullet.tscn" id="2_egwno"]
+[ext_resource type="Texture2D" uid="uid://bv00o2pwem33p" path="res://Sprites/Gun.png" id="3_w7jew"]
+[ext_resource type="Texture2D" uid="uid://bt3jbksgoqdd" path="res://Sprites/Shot.png" id="4_stdik"]
 
 [sub_resource type="Animation" id="Animation_pscg3"]
 length = 0.001
@@ -100,6 +84,22 @@ tracks/2/keys = {
 "values": [true, false]
 }
 
+[sub_resource type="Animation" id="Animation_nifmx"]
+resource_name = "gun_idle"
+length = 0.10001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Gun:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lv1xn"]
 _data = {
 "RESET": SubResource("Animation_pscg3"),
@@ -108,18 +108,18 @@ _data = {
 }
 
 [node name="Gun" type="Node2D"]
-script = ExtResource("1_32k0g")
-bullet_scene = ExtResource("2_g2ubf")
+script = ExtResource("1_y3mp3")
+bullet_scene = ExtResource("2_egwno")
 
 [node name="Gun" type="Sprite2D" parent="."]
-texture = ExtResource("2_akkde")
+texture = ExtResource("3_w7jew")
 hframes = 3
 frame = 2
 
 [node name="Flash" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(11, -1)
-texture = ExtResource("3_rsb50")
+texture = ExtResource("4_stdik")
 hframes = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

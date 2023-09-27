@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://diagpqswh4701"]
+
+[ext_resource type="Texture2D" uid="uid://cx0n38eakk21r" path="res://Sprites/Monster_Running.png" id="1_2bj0p"]
+[ext_resource type="Script" path="res://Scripts/monster.gd" id="1_y6br4"]
+[ext_resource type="Script" path="res://Scripts/HealthComponent.gd" id="3_2q5e1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u5jgq"]
+size = Vector2(32, 32)
+
+[node name="Monster" type="CharacterBody2D"]
+script = ExtResource("1_y6br4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_2bj0p")
+hframes = 8
+vframes = 5
+frame = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_u5jgq")
+
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("3_2q5e1")
